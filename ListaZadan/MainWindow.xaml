@@ -8,12 +8,12 @@
         Title="Lista zadań" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+            <MenuItem Header="_Plik">
+                <MenuItem Header="_Nowy" />
+                <MenuItem Header="_Otwórz" />
+                <MenuItem Header="_Zapisz" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Zakończ" />
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Command="Cut" />
@@ -26,22 +26,47 @@
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListView Name="TasksListView" Grid.Column="0" Margin="5" Width="auto">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Name}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Name" Click="TasksListViewColumnHeader_Click">Zadanie</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="80" DisplayMemberBinding="{Binding Category}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Category" Click="TasksListViewColumnHeader_Click">Kategoria</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <Label VerticalContentAlignment="Center" Height="auto">Zadanie:</Label>
+                    <TextBox VerticalContentAlignment="Center" Margin="5" Padding="5"></TextBox>
+                </DockPanel>
+                <ComboBox Grid.Row="1" SelectedIndex="0" Margin="5" Padding="5">
+                    <ComboBoxItem >Bez grupowania</ComboBoxItem>
+                    <ComboBoxItem >Grupuj wg zadania</ComboBoxItem>
+                    <ComboBoxItem >Grupuj wg kategorii</ComboBoxItem>
+                </ComboBox>
+                <ListView Grid.Row="2" Name="TasksListView" Margin="5" Width="auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Width="30">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Name="TaskCheckBox" Tag="{Binding Name}" IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" DisplayMemberBinding="{Binding Name}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Name" Click="TasksListViewColumnHeader_Click">Zadanie</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" DisplayMemberBinding="{Binding Category}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Category" Click="TasksListViewColumnHeader_Click">Kategoria</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
