@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListaZadan"
         mc:Ignorable="d"
-        Title="Lista zadań" Height="450" Width="800">
+        Title="Lista zadań" Height="450" Width="1000">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Plik">
-                <MenuItem Header="_Nowy" />
+                <MenuItem Header="_Nowy" Click="NewTask_Click"/>
+                <MenuItem Header="_Edytuj" Click="EditTask_Click"/>
                 <MenuItem Header="_Otwórz" />
                 <MenuItem Header="_Zapisz" />
                 <Separator />
@@ -52,14 +53,29 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Id}" Width="30">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Id">ID</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
                                 <GridViewColumn Width="120" DisplayMemberBinding="{Binding Name}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Name" Click="TasksListViewColumnHeader_Click">Zadanie</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="80" DisplayMemberBinding="{Binding Category}">
+                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding Category}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Category" Click="TasksListViewColumnHeader_Click">Kategoria</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" DisplayMemberBinding="{Binding Priority}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Priorytet" Click="TasksListViewColumnHeader_Click">Priorytet</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="140" DisplayMemberBinding="{Binding TimeLimit}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="TimeLimit" Click="TasksListViewColumnHeader_Click">Limit Czasu</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
                             </GridView.Columns>

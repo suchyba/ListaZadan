@@ -29,7 +29,7 @@ namespace ListaZadan
 
             List<Task> items = new List<Task>();
             List<Step> steps = new List<Step>();
-            items.Add(new Task() { Name = "Posprzataj_pokoj", Category = "Dom" });
+            items.Add(new Task() { Name = "Posprzataj_pokoj", Category = "Dom", Priority = 2, TimeLimit = DateTime.Now });
             items.Add(new Task() { Name = "Zmyj_podloge_w_kuchni", Category = "Dom" });
             items.Add(new Task() { Name = "Nastaw_pranie", Category = "Dom" });
             items.Add(new Task() { Name = "Odrób_lekcje", Category = "Szkoła" });
@@ -57,6 +57,18 @@ namespace ListaZadan
             AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
             TasksListView.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
         }
+
+        private void NewTask_Click(object sender, RoutedEventArgs e)
+        {
+            NewTask view = new NewTask();
+            view.ShowDialog();
+        }
+
+        private void EditTask_Click(object sender, RoutedEventArgs e)
+        {
+            EditTask view = new EditTask();
+            view.ShowDialog();
+        }
     }
 
     public class Task
@@ -64,6 +76,8 @@ namespace ListaZadan
         public string Name { get; set; }
 
         public string Category { get; set; }
+        public int Priority { get; set;}
+        public DateTime TimeLimit { get; set; }
     }
 
     public class Step
