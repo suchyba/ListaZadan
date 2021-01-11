@@ -23,19 +23,24 @@ namespace ListaZadan
     {
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
+        List<Task> tasks = new List<Task>();
+        List<Step> steps = new List<Step>();
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Task> items = new List<Task>();
-            List<Step> steps = new List<Step>();
-            items.Add(new Task() { Name = "Posprzataj_pokoj", Category = "Dom", Priority = 2, TimeLimit = DateTime.Now });
-            items.Add(new Task() { Name = "Zmyj_podloge_w_kuchni", Category = "Dom" });
-            items.Add(new Task() { Name = "Nastaw_pranie", Category = "Dom" });
-            items.Add(new Task() { Name = "Odrób_lekcje", Category = "Szkoła" });
+            tasks.Add(new Task() { Name = "Posprzataj_pokoj", Category = "Dom", Priority = 2, TimeLimit = DateTime.Now });
+            tasks.Add(new Task() { Name = "Zmyj_podloge_w_kuchni", Category = "Dom" });
+            tasks.Add(new Task() { Name = "Nastaw_pranie", Category = "Dom" });
+            tasks.Add(new Task() { Name = "Odrób_lekcje", Category = "Szkoła" });
             steps.Add(new Step() { Name = "to jest maly krok dla czlowieka, ale wielki skok dla ludzkosci" });
-            TasksListView.ItemsSource = items;
+            TasksListView.ItemsSource = tasks;
             StepsListView.ItemsSource = steps;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(TasksListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category");
+            view.GroupDescriptions.Add(groupDescription);
+            
         }
 
         private void TasksListViewColumnHeader_Click(object sender, RoutedEventArgs e)
@@ -60,8 +65,9 @@ namespace ListaZadan
 
         private void NewTask_Click(object sender, RoutedEventArgs e)
         {
-            NewTask view = new NewTask();
+            EditTask view = new EditTask();
             view.ShowDialog();
+            tasks.Add(view.task);
         }
 
         private void EditTask_Click(object sender, RoutedEventArgs e)
@@ -71,13 +77,45 @@ namespace ListaZadan
         }
     }
 
-    public class Task
+    public class Task : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        public string name;
+        public string category;
+        public int priority;
+        public DateTime timeLimit;
+        public Task()
+        {
+            Name = "Nowy";
+            Category = "Task";
+        }
+        public string Name {
+            get { return name; } 
+            set { name = value; onPropertyChanged("TaskDetails"); }
+        }
 
-        public string Category { get; set; }
-        public int Priority { get; set;}
-        public DateTime TimeLimit { get; set; }
+        public string Category
+        {
+            get { return category; }
+            set { category = value; onPropertyChanged("TaskDetails"); }
+        }
+        public int Priority
+        {
+            get { return priority; }
+            set { priority = value; onPropertyChanged("TaskDetails"); }
+        }
+        public DateTime TimeLimit
+        {
+            get { return timeLimit; }
+            set { timeLimit = value; onPropertyChanged("TaskDetails"); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void onPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
     }
 
     public class Step

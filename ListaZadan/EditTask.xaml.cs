@@ -17,13 +17,34 @@ namespace ListaZadan
     /// </summary>
     public partial class EditTask : Window
     {
+        public Task task { get; private set; }
         public EditTask()
         {
             InitializeComponent();
         }
+        public EditTask(Task task)
+        {
+            InitializeComponent();
+            this.task = task;
+
+            TaskName.Text = task.Name;
+            Category.Text = task.Category;
+            Priority.Value = task.Priority;
+
+        }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            if(task == null)
+            {
+                task = new Task();
+            }
+            task.Name = TaskName.Text;
+            task.Category = Category.Text;
+            task.Priority = (int)Priority.Value;
+            task.TimeLimit = (DateTime)TimeLimit.SelectedDate;
+
+            DialogResult = true;
             Close();
         }
 

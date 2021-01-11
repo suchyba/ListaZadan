@@ -22,7 +22,7 @@
         <Label Margin="5" Grid.Row="1" Grid.Column="0">Kategoria</Label>
         <Label Margin="5" Grid.Row="2" Grid.Column="0">Priorytet</Label>
         <Label Margin="5" Grid.Row="3" Grid.Column="0">Limit Czasu</Label>
-        <TextBox Name="Task" Margin="5" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"></TextBox>
+        <TextBox Name="TaskName" Margin="5" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"></TextBox>
         <TextBox Name="Category" Margin="5" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"></TextBox>
         <Slider Name="Priority"  Margin="5" Grid.Row="2" Grid.Column="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Minimum="0" Maximum="4" TickFrequency="1"></Slider>
         <DatePicker Name="TimeLimit"  Margin="5" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"></DatePicker>
